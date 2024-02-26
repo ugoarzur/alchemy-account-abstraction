@@ -49,7 +49,7 @@ const client = await createModularAccountAlchemyClient({
     uo: {
       target: targetedAddress ?? vitalikAddress, // The desired target contract address
       data: '0x', // The desired call data
-      value: 1n, // (Optional) value to send the target contract address
+      value: 0n, // (Optional) value to send the target contract address
     },
   })
 

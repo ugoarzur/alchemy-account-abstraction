@@ -1,10 +1,10 @@
 {
   "name": "alchemy-account-abstraction",
   "version": "1.0.0",
-  "description": "A basic test of Account Abstraction with Alchemy",
+  "description": "A basic test of Account Abstraction with Alchemy.",
   "main": "index.ts",
   "type": "module",
-  "license": "AGPL-version-3.0",
+  "license": "UNLICENSED",
   "private": false,
   "engines": {
     "node": ">= 18.16.0"
@@ -12,7 +12,7 @@
   "homepage": "",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/ugoarzur/alchemy-account-abstraction.git"
   },
   "bugs": "",
   "keywords": [
