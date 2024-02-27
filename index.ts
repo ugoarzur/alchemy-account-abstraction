@@ -16,12 +16,16 @@ const privateKey = `0x${process.env.PRIVATE_KEY}` as Hex
 const alchemyKey = process.env.ALCHEMY_KEY
 const targetedAddress = process.env.TARGETED_ADDRESS as Address
 const vitalikAddress = process.env.VITALIK_ADDRESS as Address
+const alchemyPolicyId = process.env.ALCHEMY_POLICY_ID as string | undefined
 
 if (!alchemyKey) {
   throw new Error('Need Alchemy Key.')
 }
 if (!privateKey) {
   throw new Error('Need a private key.')
+}
+if (!alchemyPolicyId) {
+  throw new Error('Need a gas policy id.')
 }
 if (!targetedAddress || !vitalikAddress) {
   throw new Error('Need a targeted address (vitalik or other).')
@@ -35,6 +39,9 @@ const client = await createModularAccountAlchemyClient({
   apiKey: alchemyKey,
   chain,
   signer,
+  gasManagerConfig: {
+    policyId: alchemyPolicyId,
+  },
 })
 
 ;(async () => {
