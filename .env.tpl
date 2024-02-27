@@ -1,6 +1,4 @@
-PRIVATE_KEY=
-PUBLIC_KEY=0x
-TARGETED_ADDRESS=0x
-VITALIK_ADDRESS=0x
-ALCHEMY_KEY=
-ALCHEMY_POLICY_ID=
+PRIVATE_KEY= # EOA to initiate the transaction
+TARGETED_ADDRESS= # Account to send the transaction
+ALCHEMY_KEY= # Alchemy project key
+ALCHEMY_POLICY_ID= # Alchemy

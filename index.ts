@@ -14,8 +14,9 @@ const chain = polygonMumbai
 // Our recommendation is to store the private key in an environment variable
 const privateKey = `0x${process.env.PRIVATE_KEY}` as Hex
 const alchemyKey = process.env.ALCHEMY_KEY
-const targetedAddress = process.env.TARGETED_ADDRESS as Address
-const vitalikAddress = process.env.VITALIK_ADDRESS as Address
+const vitalikAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045' as Address
+const targetedAddress =
+  (process.env.TARGETED_ADDRESS as Address) || vitalikAddress
 const alchemyPolicyId = process.env.ALCHEMY_POLICY_ID as string | undefined
 
 if (!alchemyKey) {
@@ -27,11 +28,10 @@ if (!privateKey) {
 if (!alchemyPolicyId) {
   throw new Error('Need a gas policy id.')
 }
-if (!targetedAddress || !vitalikAddress) {
-  throw new Error('Need a targeted address (vitalik or other).')
-}
 
 const signer = LocalAccountSigner.privateKeyToAccountSigner(privateKey)
+//TODO: We could call an Create Policy endpoint if we need to dynamically create it.
+// https://docs.alchemy.com/reference/create-policy
 
 // Create a smart account client to send user operations from your smart account
 const client = await createModularAccountAlchemyClient({
@@ -48,13 +48,11 @@ const client = await createModularAccountAlchemyClient({
   // Fund your account address with ETH to send for the user operations
   // (e.g. Get Sepolia ETH at https://sepoliafaucet.com)
   console.log('Smart Account Address: ', client.getAddress()) // Log the smart account address
-  console.log(
-    `From ${client.getAddress()} to ${targetedAddress ?? vitalikAddress}`
-  )
-  // Send a user operation from your smart account to Vitalik that does nothing
+  console.log(`From ${client.getAddress()} to ${targetedAddress}`)
+  // Send a user operation from your smart account to targetedAddress (custom adress or Vitalik's adress) that does nothing
   const { hash: uoHash } = await client.sendUserOperation({
     uo: {
-      target: targetedAddress ?? vitalikAddress, // The desired target contract address
+      target: targetedAddress, // The desired target contract address
       data: '0x', // The desired call data
       value: 0n, // (Optional) value to send the target contract address
     },
